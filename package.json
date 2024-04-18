@@ -3,14 +3,38 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "check-coverage": true,
+    "all": true,
+    "include": [
+      "src/**/!(*.test.*).[tj]s?(x)"
+    ],
+    "exclude": [
+      "src/_tests_/**/*.*",
+      "src/database/**/*.*"
+    ],
+    "reporter": [
+      "html",
+      "lcov",
+      "text",
+      "text-summary"
+    ],
+    "report-dir": "coverage",
+    "lines": 40
+  },
   "scripts": {
     "start": "nodemon --exec ts-node src/index.ts",
-    "test": "nyc mocha -r ts-node/register 'tests/*.spec.ts'"
+    "test": "nyc mocha -require ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit",
+    "dev": "tsnd --respawn ./src/index",
+    "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test | coveralls",
+    "coverage": "nyc mocha --require ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/bcrypt": "^5.0.2",
     "@types/chai": "^4.3.14",
     "@types/cors": "^2.8.17",
@@ -18,7 +42,9 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/mocha": "^10.0.6",
     "@types/supertest": "^6.0.2",
-    "chai": "^5.1.0",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.6",
+    "chai": "^4.3.4",
     "dotenv": "^16.4.5",
     "mocha": "^10.4.0",
     "nodemon": "^3.1.0",
@@ -29,9 +55,12 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "chai-http": "^4.4.0",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.2.4"
+    "mongoose": "^8.2.4",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   }
 }
