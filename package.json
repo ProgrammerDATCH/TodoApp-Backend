@@ -11,8 +11,8 @@
       "src/**/!(*.test.*).[tj]s?(x)"
     ],
     "exclude": [
-      "src/_tests_/**/*.*",
-      "src/database/**/*.*"
+      "src/database/**/*.*",
+      "src/index.ts"
     ],
     "reporter": [
       "html",

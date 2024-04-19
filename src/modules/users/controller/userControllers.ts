@@ -42,7 +42,7 @@ const deleteUser = async (req: Request, res: Response)=>{
     if(!user) return res.json({status: false, message: "User doesn't exist."});
     const { deletedCount } = await deleteUserByEmail(email);
     if(deletedCount < 1) res.json({status: false, message: "Failed to delete User"});
-    else res.json({status: true, message: "Deleted."});
+    else res.json({status: true, message: "Deleted"});
 }
 
 const updateUser = async (req: Request, res: Response)=>{
